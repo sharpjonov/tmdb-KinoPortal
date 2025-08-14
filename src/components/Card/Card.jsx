@@ -16,7 +16,7 @@ const Card = ({
 
   return (
     <li className="list-unstyled col-md-3 col-sm-6 mb-4">
-      <Link className="text-decoration-none" to={"" + id}>
+      <Link className="text-decoration-none" to={`/popular/${id}`}>
         <div
           className={`card h-100 border-0 shadow-sm ${
             mode ? "bg-dark text-light" : "bg-light text-dark"
@@ -35,8 +35,14 @@ const Card = ({
                 height: "45px",
                 bottom: "-45px",
                 backgroundColor: mode ? "#212529" : "#fff",
-                border: `3px solid ${vote_average >= 7.0 ? "green" : "red"}`,
-                color: mode ? "#f8f9fa" : "#212529",
+                border: `3px solid ${
+                  vote_average >= 8.0
+                    ? "purple"
+                    : vote_average >= 7.0
+                    ? "green"
+                    : "red"
+                }`,
+                color: mode ? "white" : "black",
               }}
             >
               {Math.round(vote_average * 10)}%

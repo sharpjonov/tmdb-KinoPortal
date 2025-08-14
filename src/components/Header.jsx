@@ -17,13 +17,14 @@ const Header = () => {
     >
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
-          {/* Logo */}
           <div>
             <img width={200} height={100} src={logo} alt="Logo" />
           </div>
 
-          {/* Navigation */}
-          <ul className="m-0 p-0 list-unstyled d-flex align-items-center gap-3">
+          <ul
+            id="header_list"
+            className="m-0 p-0 list-unstyled d-flex align-items-center gap-3"
+          >
             <li>
               <NavLink
                 className={({ isActive }) =>

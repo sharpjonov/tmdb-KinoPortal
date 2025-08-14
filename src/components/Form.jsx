@@ -10,11 +10,14 @@ const Form = () => {
       <div className="d-flex align-items-center gap-3">
         <div className="input-group">
           <input
+            id="Form-search"
             type="search"
             placeholder="Search..."
             className={`form-control ${mode ? "bg-dark" : "bg-light"} `}
           />
-          <button className="btn btn-outline-secondary">search</button>
+          <button id="Form-button" className="btn btn-outline-secondary">
+            search
+          </button>
         </div>
         <button
           type="button"

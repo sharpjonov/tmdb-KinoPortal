@@ -5,6 +5,7 @@ const API_KEY =
 
 export const baseURL = "https://api.themoviedb.org/3/";
 export const baseImg = "https://image.tmdb.org/t/p/w200";
+export const baseBackdrop = "https://image.tmdb.org/t/p/original";
 
 export const apis = {
   getTopRated: async () => {

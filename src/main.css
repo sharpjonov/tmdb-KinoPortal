@@ -21,3 +21,17 @@ body {
   color: #000 !important;
   opacity: 70% !important;
 }
+
+@media (max-width: 576px) {
+  #header_list {
+    display: none !important;
+  }
+
+  #Form-search {
+    display: none !important;
+  }
+
+  #Form-button {
+    display: none !important;
+  }
+}
