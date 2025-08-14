@@ -1,0 +1,42 @@
+$theme-colors: (
+  "cinema": #16B7DB
+);
+
+
+
+@import "bootstrap";
+
+
+$dark-bg: #000;
+$dark-text: #fff;
+$light-bg: #fff;
+$light-text: #000;
+
+.input-dark {
+  background-color: $dark-bg !important;
+  color: $dark-text !important;
+  border-color: darken($dark-bg, 20%) !important;
+
+  &::placeholder {
+    color: $dark-text !important;
+    opacity: 0.7;
+  }
+}
+
+.input-light {
+  background-color: $light-bg !important;
+  color: $light-text !important;
+  border-color: darken($light-bg, 20%) !important;
+
+  &::placeholder {
+    color: $light-text !important;
+    opacity: 0.7;
+  }
+}
+
+
+
+
+
+
+
