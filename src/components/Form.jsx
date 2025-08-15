@@ -1,5 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 import ThemeContext from "../context/ThemeContext";
+import { API_KEY, baseURL } from "../API/api";
+import axios from "axios";
 // import "../sass/custom.sass";
 
 const Form = () => {
@@ -13,7 +15,9 @@ const Form = () => {
             id="Form-search"
             type="search"
             placeholder="Search..."
-            className={`form-control ${mode ? "bg-dark" : "bg-light"} `}
+            className={`form-control ${
+              mode ? "bg-dark text-light" : "bg-light"
+            } `}
           />
           <button id="Form-button" className="btn btn-outline-secondary">
             search

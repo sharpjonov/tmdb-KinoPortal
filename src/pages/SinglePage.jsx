@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { apis, baseBackdrop, baseImg } from "../API/api";
 import Header from "../components/Header";
 import ThemeContext from "../context/ThemeContext";
@@ -23,6 +23,8 @@ const SinglePage = () => {
   useEffect(() => {
     getDetail();
   }, [id]);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -58,22 +60,31 @@ const SinglePage = () => {
                 </p>
                 <hr />
                 <ul className="list-unstyled">
-                  <li>
-                    <strong>Release Date:</strong> {detail.release_date}
+                  <li className="d-flex align-items-center gap-2 mb-3">
+                    <span
+                      className="badge rounded-circle d-flex align-items-center justify-content-center"
+                      style={{
+                        width: "45px",
+                        height: "45px",
+                        backgroundColor: mode ? "#212529" : "#fff",
+                        border: `3px solid ${
+                          detail?.vote_average >= 8.0
+                            ? "purple"
+                            : detail?.vote_average >= 7.0
+                            ? "green"
+                            : "red"
+                        }`,
+                        color: mode ? "white" : "black",
+                      }}
+                    >
+                      {Math.round(detail?.vote_average * 10)}%
+                    </span>
+                    <strong>
+                      User <br /> Score
+                    </strong>{" "}
                   </li>
                   <li>
-                    <strong>Rating:</strong>{" "}
-                    <span
-                      className={`badge ${
-                        detail.vote_average?.toFixed(1) >= 8.0
-                          ? "bg-primary"
-                          : detail.vote_average?.toFixed(1) >= 7.0
-                          ? "bg-success"
-                          : "bg-danger"
-                      }`}
-                    >
-                      {detail.vote_average?.toFixed(1)}
-                    </span>
+                    <strong>Release Date:</strong> {detail.release_date}
                   </li>
                   <li>
                     <strong>Original Title:</strong> {detail.original_title}
@@ -91,11 +102,14 @@ const SinglePage = () => {
               </div>
             </div>
           </div>
-          <Link to="/popular">
-            <button className="btn btn-outline-primary mt-5 px-4 py-2 shadow-sm">
-              Back
-            </button>
-          </Link>
+          <button
+            onClick={() => navigate(-1)}
+            className={`btn mt-4 px-4 py-2 shadow-sm ${
+              mode ? "btn-dark" : "btn-light"
+            }`}
+          >
+            Back
+          </button>
         </div>
       </section>
     </>

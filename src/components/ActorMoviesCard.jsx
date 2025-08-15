@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
-import { baseImg } from "../../API/api";
-import "./Card.css";
-import ThemeContext from "../../context/ThemeContext";
 import { Link } from "react-router-dom";
+import { baseImg } from "../API/api";
+import ThemeContext from "../context/ThemeContext";
 
-const Card = ({
+const ActorMoviesCard = ({
   title,
   img,
   vote_average,
   release_date,
-  original_title,
+  character,
   id,
 }) => {
   const { mode } = useContext(ThemeContext);
+
+  if (!id || !img) return null;
 
   return (
     <li className="list-unstyled col-md-3 col-sm-6 mb-4">
@@ -53,7 +54,7 @@ const Card = ({
               {title}
             </h5>
             <p className={`mb-1 ${mode ? "text-light" : "text-muted"}`}>
-              {original_title}
+              Role: {character}
             </p>
             <small className="">{release_date}</small>
           </div>
@@ -63,4 +64,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default ActorMoviesCard;

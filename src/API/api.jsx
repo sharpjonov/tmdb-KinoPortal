@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY =
+export const API_KEY =
   "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZTQ0ZmJhYmNmMzJlYTQwNmJhYjkzMjc1NGY0MmJlZSIsIm5iZiI6MTc1NDcyMTUxMi44NTc5OTk4LCJzdWIiOiI2ODk2ZWNlODI2MjY0ODE2NTk4ZWE1YTkiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.Za_H8Ju1J1bPaYD6IrPFBHfX6CnOWEtLrIu9C7y_3Do";
 
 export const baseURL = "https://api.themoviedb.org/3/";
@@ -26,6 +26,15 @@ export const apis = {
     });
   },
 
+  getPeople: async () => {
+    return axios.get(baseURL + "person/popular" + "?language=en-US&page=1", {
+      headers: {
+        Authorization: API_KEY,
+        Accept: "application/json",
+      },
+    });
+  },
+
   getDetails: async (id) => {
     return axios.get(baseURL + `movie/${id}` + "?language=en-US", {
       headers: {
@@ -33,5 +42,26 @@ export const apis = {
         Accept: "application/json",
       },
     });
+  },
+
+  getActorDetails: async (person_id) => {
+    return axios.get(baseURL + `person/${person_id}` + "?language=en-US", {
+      headers: {
+        Authorization: API_KEY,
+        Accept: "application/json",
+      },
+    });
+  },
+
+  getActorMovies: async (person_id) => {
+    return axios.get(
+      baseURL + `person/${person_id}/movie_credits` + "?language=en-US",
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 };
