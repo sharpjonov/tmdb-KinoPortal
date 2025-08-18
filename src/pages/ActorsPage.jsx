@@ -4,10 +4,11 @@ import { apis, baseBackdrop, baseImg } from "../API/api";
 import Header from "../components/Header";
 import ThemeContext from "../context/ThemeContext";
 import ActorMoviesCard from "../components/ActorMoviesCard";
+import { Skeleton } from "antd";
 
 const ActorsPage = () => {
   const { mode } = useContext(ThemeContext);
-
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   const [persondetail, setPersondetail] = useState({});
@@ -15,21 +16,25 @@ const ActorsPage = () => {
 
   const getActorDetail = async () => {
     try {
+      setLoading(true);
       const res = await apis.getActorDetails(id);
       setPersondetail(res.data);
-      //   console.log(res.data);
     } catch (error) {
       console.log("API XATOSI: " + error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const getActorMovie = async () => {
     try {
+      setLoading(true);
       const res = await apis.getActorMovies(id);
       setActorMovies(res.data.cast);
-      console.log(res.data.cast);
     } catch (error) {
       console.log("API XATOSI: " + error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -61,48 +66,55 @@ const ActorsPage = () => {
           >
             <div className="row g-4 align-items-center">
               <div className="col-md-4 text-center">
-                <img
-                  src={baseBackdrop + persondetail?.profile_path}
-                  alt={persondetail.title}
-                  className="img-fluid rounded shadow-sm"
-                />
+                {loading ? (
+                  <Skeleton.Image style={{ width: "300px", height: "600px" }} />
+                ) : (
+                  <img
+                    src={baseBackdrop + persondetail?.profile_path}
+                    alt={persondetail.title}
+                    className="img-fluid rounded shadow-sm"
+                  />
+                )}
               </div>
               <div className="col-md-8">
-                <h1 className="fw-bold mb-3">{persondetail.name}</h1>
-                <p className="fw-bold m-0 mb-2">
-                  Known For <br />
-                  <span className="fw-normal">
-                    {persondetail.known_for_department}
-                  </span>
-                </p>
-                <p className="fw-bold m-0">
-                  Gender <br />
-                  <span className="fw-normal">{`${
-                    persondetail?.gender === 2 ? "Male" : "Female"
-                  }`}</span>
-                </p>
-                {/* <p className={mode ? "text-light" : "text-muted"}>
-                  {persondetail.biography}
-                </p> */}
-                <hr />
-                <ul className="list-unstyled">
-                  <li className="mb-2">
-                    <strong>Birthday</strong> <br /> {persondetail.birthday}
-                  </li>
-                  <li className="mb-2">
-                    <strong>
-                      Place of Birth
-                      <br />
-                    </strong>{" "}
-                    {persondetail.place_of_birth}
-                  </li>
-                  <li className="mb-2">
-                    <strong>
-                      Original Title <br />
-                    </strong>{" "}
-                    {persondetail.also_known_as?.slice(1, 2)}
-                  </li>
-                </ul>
+                {loading ? (
+                  <Skeleton active title paragraph={{ rows: "11" }} />
+                ) : (
+                  <>
+                    <h1 className="fw-bold mb-3">{persondetail.name}</h1>
+                    <p className="fw-bold m-0 mb-2">
+                      Known For <br />
+                      <span className="fw-normal">
+                        {persondetail.known_for_department}
+                      </span>
+                    </p>
+                    <p className="fw-bold m-0">
+                      Gender <br />
+                      <span className="fw-normal">{`${
+                        persondetail?.gender === 2 ? "Male" : "Female"
+                      }`}</span>
+                    </p>
+                    <hr />
+                    <ul className="list-unstyled">
+                      <li className="mb-2">
+                        <strong>Birthday</strong> <br /> {persondetail.birthday}
+                      </li>
+                      <li className="mb-2">
+                        <strong>
+                          Place of Birth
+                          <br />
+                        </strong>{" "}
+                        {persondetail.place_of_birth}
+                      </li>
+                      <li className="mb-2">
+                        <strong>
+                          Original Title <br />
+                        </strong>{" "}
+                        {persondetail.also_known_as?.slice(1, 2)}
+                      </li>
+                    </ul>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -114,6 +126,9 @@ const ActorsPage = () => {
           >
             Back
           </button>
+          <h3 style={{ fontSize: "36px" }} className="mt-4 text-center">
+            Famous For
+          </h3>
           <div className="row mt-5">
             {actorMovies.map((movie) => (
               <ActorMoviesCard

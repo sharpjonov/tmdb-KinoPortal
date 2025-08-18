@@ -26,6 +26,24 @@ export const apis = {
     });
   },
 
+  getNowPlaying: async (id) => {
+    return axios.get(baseURL + `movie/now_playing` + "?language=en-US&page=1", {
+      headers: {
+        Authorization: API_KEY,
+        Accept: "application/json",
+      },
+    });
+  },
+
+  getUpcoming: async (id) => {
+    return axios.get(baseURL + `movie/upcoming` + "?language=en-US&page=1", {
+      headers: {
+        Authorization: API_KEY,
+        Accept: "application/json",
+      },
+    });
+  },
+
   getPeople: async () => {
     return axios.get(baseURL + "person/popular" + "?language=en-US&page=1", {
       headers: {
@@ -46,6 +64,15 @@ export const apis = {
 
   getActorDetails: async (person_id) => {
     return axios.get(baseURL + `person/${person_id}` + "?language=en-US", {
+      headers: {
+        Authorization: API_KEY,
+        Accept: "application/json",
+      },
+    });
+  },
+
+  getActorList: async (id) => {
+    return axios.get(baseURL + `movie/${id}/credits?language=en-US`, {
       headers: {
         Authorization: API_KEY,
         Accept: "application/json",

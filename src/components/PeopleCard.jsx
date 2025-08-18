@@ -1,38 +1,52 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import ThemeContext from "../context/ThemeContext";
-import { baseBackdrop, baseImg } from "../API/api";
+import { baseBackdrop } from "../API/api";
+import { Skeleton } from "antd";
 
-const PeopleCard = ({ id, img, name, original_name, popularity }) => {
+const PeopleCard = ({ id, img, name, character }) => {
   const { mode } = useContext(ThemeContext);
 
   return (
-    <li className="list-unstyled col-lg-3 col-md-4 col-sm-6 mb-4">
-      <Link className="text-decoration-none" to={`/actors/info/${id}`}>
+    <li className="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <Link
+        to={`/actors/info/${id}`}
+        className="text-decoration-none text-reset"
+      >
         <div
-          className={`card border-0 h-100 text-center ${
-            mode ? "bg-dark text-light shadow-lg" : "bg-light text-dark shadow"
+          className={`card h-100 text-center shadow-lg border-0 ${
+            mode ? "bg-dark text-light" : "bg-white text-dark"
           }`}
-          style={{ transition: "transform 0.3s", cursor: "pointer" }}
         >
-          <div className="p-3">
-            <img
-              src={img ? baseBackdrop + img : "Loading.."}
-              className="rounded-circle img-fluid"
-              alt={name}
-              style={{
-                width: "150px",
-                height: "150px",
-                objectFit: "cover",
-                border: "4px solid #fff",
-                boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
-              }}
-            />
-          </div>
-          <div className="card-body">
-            <h5 className="card-title fw-bold text-truncate" title={name}>
-              {name}
+          <div className="card-body d-flex flex-column align-items-center">
+            {img ? (
+              <img
+                src={baseBackdrop + img}
+                alt={name}
+                className="rounded-circle mb-3 img-fluid shadow"
+                style={{ width: "150px", height: "150px", objectFit: "cover" }}
+              />
+            ) : (
+              <Skeleton.Image
+                active
+                style={{
+                  width: 150,
+                  height: 150,
+                  borderRadius: "50%",
+                  marginBottom: "16px",
+                }}
+              />
+            )}
+
+            <h5 className="fw-bold text-truncate">
+              {character
+                ? character.length > 10
+                  ? character.slice(0, 15)
+                  : character
+                : name}
             </h5>
+
+            <p className="mb-0">{character ? name : ""}</p>
           </div>
         </div>
       </Link>

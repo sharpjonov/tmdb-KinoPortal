@@ -7,6 +7,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import People from "../pages/People";
 import SinglePage from "../pages/SinglePage";
 import ActorsPage from "../pages/ActorsPage";
+import Upcoming from "../pages/Upcoming";
+import NowPlaying from "../pages/NowPlaying";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/people",
         element: <People />,
+      },
+      {
+        path: "/upcoming",
+        element: <Upcoming />,
+      },
+      {
+        path: "/nowplaying",
+        element: <NowPlaying />,
       },
     ],
   },

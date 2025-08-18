@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseImg } from "../API/api";
 import ThemeContext from "../context/ThemeContext";
+import { Skeleton } from "antd";
 
 const ActorMoviesCard = ({
   title,
@@ -12,8 +13,7 @@ const ActorMoviesCard = ({
   id,
 }) => {
   const { mode } = useContext(ThemeContext);
-
-  if (!id || !img) return null;
+  const [loading, setLoading] = useState(true);
 
   return (
     <li className="list-unstyled col-md-3 col-sm-6 mb-4">
@@ -24,11 +24,18 @@ const ActorMoviesCard = ({
           }`}
         >
           <div className="position-relative">
-            <img
-              src={baseImg + img}
-              className="card-img-top rounded-top"
-              alt={title}
-            />
+            {!loading ? (
+              <Skeleton.Image style={{ width: "260px", height: "369px" }} />
+            ) : img ? (
+              <img
+                src={baseImg + img}
+                className="card-img-top rounded-top"
+                alt={title}
+              />
+            ) : (
+              <Skeleton.Image style={{ width: "260px", height: "369px" }} />
+            )}
+
             <span
               className="badge position-absolute start-0 translate-middle-y d-flex align-items-center justify-content-center rounded-circle"
               style={{

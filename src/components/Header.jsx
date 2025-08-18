@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../assets/images/logo.svg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Form from "./Form";
 import ThemeContext from "../context/ThemeContext";
+import { lang } from "../lang/lang";
 
 const Header = () => {
+  const [til, setTil] = useState(localStorage.getItem("lang") || "en");
+
   const { mode } = useContext(ThemeContext);
 
   return (
@@ -18,7 +21,9 @@ const Header = () => {
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
           <div>
-            <img width={200} height={100} src={logo} alt="Logo" />
+            <Link to="/">
+              <img width={200} height={100} src={logo} alt="Logo" />
+            </Link>
           </div>
 
           <ul
@@ -33,8 +38,9 @@ const Header = () => {
                   }`
                 }
                 to="/"
+                style={{ fontSize: "14px" }}
               >
-                Home
+                {lang[til].header.homePage}
               </NavLink>
             </li>
             <li>
@@ -45,8 +51,9 @@ const Header = () => {
                   }`
                 }
                 to="/popular"
+                style={{ fontSize: "14px" }}
               >
-                Popular
+                {lang[til].header.popularPage}
               </NavLink>
             </li>
             <li>
@@ -57,12 +64,39 @@ const Header = () => {
                   }`
                 }
                 to="/people"
+                style={{ fontSize: "14px" }}
               >
-                People
+                {lang[til].header.peoplePage}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-decoration-none ${
+                    isActive ? "text-cinema" : mode ? "text-light" : "text-dark"
+                  }`
+                }
+                style={{ fontSize: "14px" }}
+                to="/nowplaying"
+              >
+                {lang[til].header.nowplayingPage}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-decoration-none ${
+                    isActive ? "text-cinema" : mode ? "text-light" : "text-dark"
+                  }`
+                }
+                to="/upcoming"
+                style={{ fontSize: "14px" }}
+              >
+                {lang[til].header.upcomingPage}
               </NavLink>
             </li>
           </ul>
-          <Form />
+          <Form til={til} setTil={setTil} />
         </div>
       </div>
     </header>

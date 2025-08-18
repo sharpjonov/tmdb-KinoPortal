@@ -3,19 +3,17 @@ import { apis } from "../API/api";
 import ThemeContext from "../context/ThemeContext";
 import "../pages/Popular/popular.css";
 import Card from "../components/Card/Card";
-import { lang } from "../lang/lang";
 
-const Layout = () => {
-  const [toprate, setToprate] = useState([]);
-  const [til, setTil] = useState("en");
+const NowPlaying = () => {
+  const [nowplaying, setNowPlaying] = useState([]);
 
   const { mode } = useContext(ThemeContext);
 
-  const getTopRate = async () => {
+  const NowPlayingFunction = async () => {
     try {
-      const res = await apis.getTopRated();
-      setToprate(res.data.results);
-      // console.log(res.data.results);
+      const res = await apis.getNowPlaying();
+      setNowPlaying(res.data.results);
+      // console.log(res);
       return res;
     } catch (error) {
       console.log("API XATOSI: " + error);
@@ -23,7 +21,7 @@ const Layout = () => {
   };
 
   useEffect(() => {
-    getTopRate();
+    NowPlayingFunction();
   }, []);
 
   return (
@@ -32,9 +30,9 @@ const Layout = () => {
         className={`py-4 ${mode ? "bg-dark text-light" : "bg-light text-dark"}`}
       >
         <div className="container">
-          <h2 className="mb-4 fw-bold text-center">{lang[til].home.title}</h2>
+          <h2 className="mb-4 fw-bold text-center">Now Playing</h2>
           <ul id="background-color__cinema--list___cards" className="row">
-            {toprate.map((el) => (
+            {nowplaying.map((el) => (
               <Card
                 key={el.id}
                 id={el.id}
@@ -52,4 +50,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default NowPlaying;
