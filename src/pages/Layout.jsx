@@ -4,16 +4,18 @@ import ThemeContext from "../context/ThemeContext";
 import "../pages/Popular/popular.css";
 import Card from "../components/Card/Card";
 import { lang } from "../lang/lang";
+import Pagination from "@mui/material/Pagination";
 
 const Layout = () => {
   const [toprate, setToprate] = useState([]);
   const [til, setTil] = useState("en");
+  const [activepage, setActivepage] = useState(1);
 
   const { mode } = useContext(ThemeContext);
 
   const getTopRate = async () => {
     try {
-      const res = await apis.getTopRated();
+      const res = await apis.getTopRated(activepage);
       setToprate(res.data.results);
       // console.log(res.data.results);
       return res;
@@ -23,8 +25,8 @@ const Layout = () => {
   };
 
   useEffect(() => {
-    getTopRate();
-  }, []);
+    getTopRate(activepage);
+  }, [activepage]);
 
   return (
     <>
@@ -46,6 +48,9 @@ const Layout = () => {
               />
             ))}
           </ul>
+          <div className="d-flex justify-content-center mt-4">
+            <Pagination onChange={(_, num) => setActivepage(num)} count={500} />
+          </div>
         </div>
       </section>
     </>

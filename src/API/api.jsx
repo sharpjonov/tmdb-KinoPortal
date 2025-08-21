@@ -8,49 +8,64 @@ export const baseImg = "https://image.tmdb.org/t/p/w200";
 export const baseBackdrop = "https://image.tmdb.org/t/p/original";
 
 export const apis = {
-  getTopRated: async () => {
-    return axios.get(baseURL + "movie/top_rated" + "?language=en-US&page=1", {
-      headers: {
-        Authorization: API_KEY,
-        Accept: "application/json",
-      },
-    });
+  getTopRated: async (idNum) => {
+    return axios.get(
+      baseURL + "movie/top_rated" + "?language=en-US&page=" + idNum,
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 
-  getPopulars: async () => {
-    return axios.get(baseURL + "movie/popular" + "?language=en-US&page=1", {
-      headers: {
-        Authorization: API_KEY,
-        Accept: "application/json",
-      },
-    });
+  getPopulars: async (idNum) => {
+    return axios.get(
+      baseURL + "movie/popular" + "?language=en-US&page=" + idNum,
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 
-  getNowPlaying: async (id) => {
-    return axios.get(baseURL + `movie/now_playing` + "?language=en-US&page=1", {
-      headers: {
-        Authorization: API_KEY,
-        Accept: "application/json",
-      },
-    });
+  getNowPlaying: async (idNum) => {
+    return axios.get(
+      baseURL + `movie/now_playing` + "?language=en-US&page=" + idNum,
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 
-  getUpcoming: async (id) => {
-    return axios.get(baseURL + `movie/upcoming` + "?language=en-US&page=1", {
-      headers: {
-        Authorization: API_KEY,
-        Accept: "application/json",
-      },
-    });
+  getUpcoming: async (idNum) => {
+    return axios.get(
+      baseURL + `movie/upcoming` + "?language=en-US&page=" + idNum,
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 
-  getPeople: async () => {
-    return axios.get(baseURL + "person/popular" + "?language=en-US&page=1", {
-      headers: {
-        Authorization: API_KEY,
-        Accept: "application/json",
-      },
-    });
+  getPeople: async (idNum) => {
+    return axios.get(
+      baseURL + "person/popular" + "?language=en-US&page=" + idNum,
+      {
+        headers: {
+          Authorization: API_KEY,
+          Accept: "application/json",
+        },
+      }
+    );
   },
 
   getDetails: async (id) => {

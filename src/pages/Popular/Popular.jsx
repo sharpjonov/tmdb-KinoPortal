@@ -3,15 +3,17 @@ import { apis } from "../../API/api";
 import Card from "../../components/Card/Card";
 import bgCinema from "/src/assets/images/bg-cinema__cards.png";
 import ThemeContext from "../../context/ThemeContext";
+import Pagination from "@mui/material/Pagination";
 
 const Popular = () => {
   const [movie, setMovie] = useState([]);
+  const [activepage, setActivepage] = useState(1);
 
   const { mode } = useContext(ThemeContext);
 
   const getMovie = async () => {
     try {
-      const res = await apis.getPopulars();
+      const res = await apis.getPopulars(activepage);
       setMovie(res.data.results);
       // console.log(res.data.results);
       return res;
@@ -21,8 +23,8 @@ const Popular = () => {
   };
 
   useEffect(() => {
-    getMovie();
-  }, []);
+    getMovie(activepage);
+  }, [activepage]);
 
   return (
     <section
@@ -50,6 +52,9 @@ const Popular = () => {
             />
           ))}
         </ul>
+        <div className="d-flex justify-content-center mt-4">
+          <Pagination onChange={(_, num) => setActivepage(num)} count={500} />
+        </div>
       </div>
     </section>
   );

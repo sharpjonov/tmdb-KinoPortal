@@ -3,15 +3,17 @@ import { apis } from "../API/api";
 import ThemeContext from "../context/ThemeContext";
 import "../pages/Popular/popular.css";
 import Card from "../components/Card/Card";
+import Pagination from "@mui/material/Pagination";
 
 const NowPlaying = () => {
   const [nowplaying, setNowPlaying] = useState([]);
+  const [activepage, setActivepage] = useState(1);
 
   const { mode } = useContext(ThemeContext);
 
   const NowPlayingFunction = async () => {
     try {
-      const res = await apis.getNowPlaying();
+      const res = await apis.getNowPlaying(activepage);
       setNowPlaying(res.data.results);
       // console.log(res);
       return res;
@@ -21,8 +23,8 @@ const NowPlaying = () => {
   };
 
   useEffect(() => {
-    NowPlayingFunction();
-  }, []);
+    NowPlayingFunction(activepage);
+  }, [activepage]);
 
   return (
     <>
@@ -44,6 +46,9 @@ const NowPlaying = () => {
               />
             ))}
           </ul>
+          <div className="d-flex justify-content-center mt-4">
+            <Pagination onChange={(_, num) => setActivepage(num)} count={500} />
+          </div>
         </div>
       </section>
     </>

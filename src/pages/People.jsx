@@ -3,15 +3,17 @@ import { apis } from "../API/api";
 import ThemeContext from "../context/ThemeContext";
 // import Card from "../components/Card/Card";
 import PeopleCard from "../components/PeopleCard";
+import Pagination from "@mui/material/Pagination";
 
 const People = () => {
   const [people, setPeople] = useState([]);
+  const [activepage, setActivepage] = useState(1);
 
   const { mode } = useContext(ThemeContext);
 
   const getPerson = async () => {
     try {
-      const res = await apis.getPeople();
+      const res = await apis.getPeople(activepage);
       setPeople(res.data.results);
       console.log(res.data.results);
       return res;
@@ -21,8 +23,8 @@ const People = () => {
   };
 
   useEffect(() => {
-    getPerson();
-  }, []);
+    getPerson(activepage);
+  }, [activepage]);
 
   return (
     <>
@@ -42,6 +44,9 @@ const People = () => {
               />
             ))}
           </ul>
+          <div className="d-flex justify-content-center mt-4">
+            <Pagination onChange={(_, num) => setActivepage(num)} count={500} />
+          </div>
         </div>
       </section>
     </>
