@@ -8,7 +8,7 @@ const PeopleCard = ({ id, img, name, character }) => {
   const { mode } = useContext(ThemeContext);
 
   return (
-    <li className="col-lg-3 col-md-4 col-sm-6 mb-4">
+    <li className="col-lg-3 col-md-4 col-sm-6 mb-4 list-unstyled">
       <Link
         to={`/actors/info/${id}`}
         className="text-decoration-none text-reset"
